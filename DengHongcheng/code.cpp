@@ -58,3 +58,51 @@ int main(){
     return 0;
 }
 */
+
+//关于this的理解，this是这个类的指针,->age，相当于类首地址+偏移地址。任何一个非静态函数都有这样一个隐藏参数，因为类的位置不能变，内容可以变，所以this的类型 应该是class * const this
+//常函数int get_age() const{} 调用this时会将this 改成const class * const this, 不允许修改类的内容
+//对类的返回很有意思 用Person& 表示函数返回时是类的引用，这样就不会进行拷贝操作， return的是是类，不是类的指针，所以是*this
+//    Person& add_age(int a){    Person& add_age(int a){age+=a; return *this; } 
+//有个warning，char* name="zhangsan",会waringm,因为这样的写法意味着非常指针指向了常量，是不被允许的，但是为了兼容只会warning。char* name=(char*)"zhangsan"就不会warning，这是一个隐式转换
+#include<iostream>
+#include<cstring>
+
+
+using namespace std;
+class Person{
+public:
+    typedef enum{
+        BOY=0,
+        GIRL
+    }SexType;
+    Person(char *name,int a, SexType s){
+        name=new char[strlen(name)+1];
+        age=a;
+        sex=s;
+
+    }
+    int get_age() const {
+        return this->age;
+    }
+    Person& add_age(int a){
+        age+=a;
+        return *this;
+    }
+    ~Person(){
+        delete [] name;
+    }
+private:
+    char * name;
+    int age;
+    SexType sex;
+};
+
+
+int main(){
+    char* name = "zhangsan";
+    cout<<name<<endl;
+    Person p((char*)"zhangsan",20,Person::BOY); 
+    cout<<p.get_age()<<endl;
+    cout<<p.add_age(2).get_age()<<endl;
+    return 0;
+}
