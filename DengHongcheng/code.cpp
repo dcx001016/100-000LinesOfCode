@@ -1,4 +1,5 @@
 //目标是十万的高质量代码行
+//类名和结构名用大驼峰，变量和函数用小驼峰法
 
 /* Static
 
@@ -59,14 +60,15 @@ int main(){
 }
 */
 
+/*
 //关于this的理解，this是这个类的指针,->age，相当于类首地址+偏移地址。任何一个非静态函数都有这样一个隐藏参数，因为类的位置不能变，内容可以变，所以this的类型 应该是class * const this
 //常函数int get_age() const{} 调用this时会将this 改成const class * const this, 不允许修改类的内容
 //对类的返回很有意思 用Person& 表示函数返回时是类的引用，这样就不会进行拷贝操作， return的是是类，不是类的指针，所以是*this
 //    Person& add_age(int a){    Person& add_age(int a){age+=a; return *this; } 
 //有个warning，char* name="zhangsan",会waringm,因为这样的写法意味着非常指针指向了常量，是不被允许的，但是为了兼容只会warning。char* name=(char*)"zhangsan"就不会warning，这是一个隐式转换
+
 #include<iostream>
 #include<cstring>
-
 
 using namespace std;
 class Person{
@@ -97,7 +99,6 @@ private:
     SexType sex;
 };
 
-
 int main(){
     char* name = "zhangsan";
     cout<<name<<endl;
@@ -106,3 +107,87 @@ int main(){
     cout<<p.add_age(2).get_age()<<endl;
     return 0;
 }
+
+*/
+
+//argc 代表参数个数, *argv[] 代表参数指针数组 argv[0]程序路径，argv[1++] 参数
+
+// #include<iostream>
+// using namespace std;
+// int main(int argc, char const *argv[])
+// {
+//     for(int i=0;i<argc;i++)
+// 	{
+// 		cout<<"argument["<<i<<"] is: "<<argv[i]<<endl;
+// 	}
+//     system("pause");
+//     return 0;
+// }
+
+//****************
+//终端输出
+// PS E:\Code\MyRepository\100-000LinesOfCode\DengHongcheng> .\demo.exe 1 2 3 qaa
+// argument[0] is: E:\Code\MyRepository\100-000LinesOfCode\DengHongcheng\demo.exe
+// argument[1] is: 1
+// argument[2] is: 2
+// argument[3] is: 3
+// argument[4] is: qaa
+
+
+
+/*
+//5.5阿里云二面，二叉树的序列化和反序列化，是剑指第37题，没有做到这里，有思路但是没能实现，任何一种遍历思想，只要存入空节点，就能确定唯一的二叉树（我：层序遍历
+
+//1 层次遍历的代码, 用vector<vector<int>>  外层向量存每一层，内层向量存这一层的数值；队列存入这一层的所有树节点
+#include<iostream>
+#include<vector>
+#include<queue>
+using namespace std;
+struct TreeNode {
+      int val;
+      TreeNode *left;
+      TreeNode *right;
+      TreeNode() : val(0), left(nullptr), right(nullptr) {}
+      TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+      TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ };
+ class Solution{
+    public:
+    vector<vector<int>> levelOrder(TreeNode* root){
+        vector<vector<int>> ret;
+        if(!root){
+            return ret;
+        }
+        queue<TreeNode*> q;
+        q.push(root);
+        while(!q.empty()){
+            int currentLevelSize = q.size();
+            ret.push_back(vector<int> ());//一个复制构造，main中确认效果
+            for(int i=1;i<currentLevelSize;q.size()){
+                auto node=q.front();q.pop();
+                ret.back().push_back(node->val);
+                if(node->left) q.push(node->left);
+                if(node->right) q.push(node->right);
+        }
+    }
+    }
+};
+
+int main(){
+    vector<int> a = vector<int> (); //一个复制构造，确认上面的作用
+    if(a.empty()){
+        cout<<"empty"<<endl;
+    }
+    //string 练习
+    string s="this is a good day";
+    s.push_back('3');
+    cout<<s<<endl;
+    return 0;
+}
+*/
+
+//2 二叉树的序列化和反序列化 剑指37 未完成
+
+
+
+
