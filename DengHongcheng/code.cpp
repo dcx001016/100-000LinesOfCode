@@ -191,3 +191,24 @@ int main(){
 
 
 
+/*
+#include<iostream>
+using namespace std;
+//相同的内存地址
+union myun //联合体名  联合体共享空间，新变量不会清除数据，只会覆盖，覆盖从联合体实例的首地址开始
+{
+    struct { int x; int y; int z; }u;//结构体实例u 
+    int k; 
+}a; //联合体实例a
+int main() 
+{ 
+    myun b;//联合体实例b
+    b.u.x =4;
+    b.u.y =5; 
+    b.u.z =6; 
+    b.k = 0; //覆盖掉第一个int空间值
+    printf("%d %d %d %d\n",b.u.x,b.u.y,b.u.z,b.k);
+    system("pause");
+    return 0;
+}
+*/
